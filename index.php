@@ -1,7 +1,3 @@
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,179 +6,6 @@ ini_set('display_errors', 1);
         const PAGE_NAME = "homepage";
     </script>
     <title>Practice chords, scales, or arpeggios with an endless stream of randomized chords | Flash Chord</title>
-    <!-- Add VexChords library directly -->
-    <script>
-        class Chord {
-            constructor(container, config = {}) {
-                console.log('Chord constructor called with:', { container, config });
-                this.container = container;
-                this.config = {
-                    numStrings: 6,
-                    numFrets: 5,
-                    width: config.width || 100,
-                    height: config.height || 120,
-                    stringSpacing: config.stringSpacing || 16,
-                    fretSpacing: config.fretSpacing || 16,
-                    stringWidth: config.stringWidth || 1,
-                    fretWidth: config.fretWidth || 1,
-                    fontSize: config.fontSize || 12,
-                    defaultColor: config.defaultColor || '#666'
-                };
-            }
-
-            draw(chord) {
-                console.log('Draw called with:', chord);
-                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                svg.setAttribute('width', this.config.width);
-                svg.setAttribute('height', this.config.height);
-
-                // Calculate positions
-                const xStart = 20;
-                const yStart = 20;
-                const width = this.config.width - 40;
-                const height = this.config.height - 40;
-
-                // Draw strings
-                for (let i = 0; i < this.config.numStrings; i++) {
-                    const x = xStart + (i * (width / (this.config.numStrings - 1)));
-                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    line.setAttribute('x1', x);
-                    line.setAttribute('y1', yStart);
-                    line.setAttribute('x2', x);
-                    line.setAttribute('y2', yStart + height);
-                    line.setAttribute('stroke', this.config.defaultColor);
-                    line.setAttribute('stroke-width', this.config.stringWidth);
-                    svg.appendChild(line);
-                }
-
-                // Draw frets
-                for (let i = 0; i <= this.config.numFrets; i++) {
-                    const y = yStart + (i * (height / this.config.numFrets));
-                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    line.setAttribute('x1', xStart);
-                    line.setAttribute('y1', y);
-                    line.setAttribute('x2', xStart + width);
-                    line.setAttribute('y2', y);
-                    line.setAttribute('stroke', this.config.defaultColor);
-                    line.setAttribute('stroke-width', this.config.fretWidth);
-                    svg.appendChild(line);
-                }
-
-                // Draw dots for finger positions
-                chord.frets.forEach((fret, stringIndex) => {
-                    const x = xStart + (stringIndex * (width / (this.config.numStrings - 1)));
-                    if (fret === -1) {
-                        // Draw X for muted string
-                        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                        text.setAttribute('x', x - 4);
-                        text.setAttribute('y', yStart - 10);
-                        text.setAttribute('fill', this.config.defaultColor);
-                        text.textContent = 'x';
-                        svg.appendChild(text);
-                    } else if (fret === 0) {
-                        // Draw O for open string
-                        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                        text.setAttribute('x', x - 4);
-                        text.setAttribute('y', yStart - 10);
-                        text.setAttribute('fill', this.config.defaultColor);
-                        text.textContent = 'o';
-                        svg.appendChild(text);
-                    } else {
-                        // Draw dot for fretted position
-                        const y = yStart + ((fret - 0.5) * (height / this.config.numFrets));
-                        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                        circle.setAttribute('cx', x);
-                        circle.setAttribute('cy', y);
-                        circle.setAttribute('r', 5);
-                        circle.setAttribute('fill', this.config.defaultColor);
-                        svg.appendChild(circle);
-                    }
-                });
-
-                this.container.appendChild(svg);
-                console.log('Chord diagram rendered');
-            }
-        }
-    </script>
-    <script src="js/chord-diagrams.js"></script>
-    <script>
-        // Debug initialization
-        window.addEventListener('load', function() {
-            console.log('Window loaded');
-            setTimeout(() => {
-                const currentChordElement = document.getElementById('chord_diagram');
-                const nextChordElement = document.getElementById('next_chord_diagram');
-                console.log('Current chord element:', currentChordElement);
-                console.log('Next chord element:', nextChordElement);
-                
-                if (currentChordElement && nextChordElement) {
-                    console.log('Attempting to render initial chords');
-                    try {
-                        renderChordDiagram('C', 'chord_diagram');
-                        renderChordDiagram('G', 'next_chord_diagram');
-                        console.log('Initial chord rendering complete');
-                    } catch (error) {
-                        console.error('Error rendering initial chords:', error);
-                    }
-                }
-            }, 500);
-        });
-    </script>
-    <style>
-    .chord-diagram {
-        text-align: center;
-        margin: 20px auto;
-        min-height: 200px;
-        width: 200px;
-        background-color: #fff;
-        display: inline-block;
-        vertical-align: top;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        padding: 20px;
-        position: relative;
-    }
-    .chord-diagram svg {
-        margin: 0 auto;
-        display: block;
-        max-width: 100%;
-        height: auto;
-    }
-    .chord-diagram:empty::after {
-        content: "Loading...";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #666;
-    }
-    .chord-container {
-        text-align: center;
-        margin-bottom: 30px;
-        display: inline-block;
-        margin: 0 30px;
-        min-width: 200px;
-    }
-    #chord_name, #next_chord_name {
-        margin-bottom: 15px;
-        font-size: 28px;
-        font-weight: bold;
-        color: #333;
-    }
-    #next_chord h3 {
-        color: #666;
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 15px;
-    }
-    .container > div:first-of-type {
-        text-align: center;
-    }
-    </style>
 </head>
 <body>
     <?php require 'components/header.php'; ?>
@@ -190,14 +13,10 @@ ini_set('display_errors', 1);
         <p class="lead text-muted">Practice chords, scales, or arpeggios with an endless stream of randomized chords!</p>
     </div>
     <div class="container">
-        <div class="chord-container">
-            <h2 id="chord_name">Chord</h2>
-            <div id="chord_diagram" class="chord-diagram"></div>
-        </div>
-        <div id="next_chord" class="chord-container">
+        <h2 id="chord_name">Chord</h2>
+        <div id="next_chord">
             <h3 class="text-center">Up next...</h3>
             <h2 id="next_chord_name">Next Chord</h2>
-            <div id="next_chord_diagram" class="chord-diagram"></div>
         </div>
         <div class="btn-group-lg text-center mt-4" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-success" id="start">Start</button>

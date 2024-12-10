@@ -18,22 +18,12 @@ $(document).ready(function() {
     // ------------------------------------------------------------
     // first, make sure we're on the home page before doing any of the chord stuff
     if (PAGE_NAME == "homepage") {
-        console.log('Initializing Flash Chord on homepage');
-        
         $chord = $next_chord ? $next_chord : getChord();
+
         $next_chord = getChord();
-        
-        console.log('Initial chords:', { current: $chord, next: $next_chord });
         
         $("#chord_name").html($chord);
         $("#next_chord_name").html($next_chord);
-        
-        // Wait a short moment for the DOM to be fully ready
-        setTimeout(() => {
-            console.log('Rendering initial chord diagrams');
-            renderChordDiagram($chord, 'chord_diagram');
-            renderChordDiagram($next_chord, 'next_chord_diagram');
-        }, 100);
 
         setupBeatsPerMeasure();
         setupBarsPerChord();
@@ -46,7 +36,6 @@ $(document).ready(function() {
 // start Flash Chord functionality
 function startFlashChord() {
     if (!$flash_chord_running) {
-        console.log('Starting Flash Chord');
         $flash_chord_running = true;
         setupBeatsPerMeasure();
         setupBarsPerChord();
@@ -59,27 +48,17 @@ function startFlashChord() {
                 // change chords
                 $chord = $next_chord ? $next_chord : getChord();
                 $next_chord = getChord();
-                
-                console.log('Updating chords:', { current: $chord, next: $next_chord });
-                
                 $("#chord_name").html($chord);
                 $("#next_chord_name").html($next_chord);
-                
-                // Wait a short moment for the DOM update
-                setTimeout(() => {
-                    console.log('Rendering updated chord diagrams');
-                    renderChordDiagram($chord, 'chord_diagram');
-                    renderChordDiagram($next_chord, 'next_chord_diagram');
-                }, 50);
+            }
 
-                // metronome beep
-                if ($("input[name=metronome_audio]").is(":checked")) {
-                    if ($current_beat == 1) {
-                        $downbeat_beep.play();
-                    }
-                    else {
-                        $beat_beep.play();
-                    }
+            // metronome beep
+            if ($("input[name=metronome_audio]").is(":checked")) {
+                if ($current_beat == 1) {
+                    $downbeat_beep.play();
+                }
+                else {
+                    $beat_beep.play();
                 }
             }
         }, getTempo());
@@ -120,9 +99,6 @@ function getChord() {
     logger("Quality: " + $quality);
     logger("Extension: " + $extension);
     logger("Slash: " + $slash);
-
-    // Render the chord diagram
-    renderChordDiagram($root, $quality);
 
     return $new_chord;
 }
@@ -295,45 +271,4 @@ function getSelectedChordTypes() {
     logger("Selected chord types: " + $selected_chord_types);
 
     return $selected_chord_types.filter(String);
-}
-
-// Define basic chord shapes
-const chordShapes = {
-    // Major chords
-    '': [[1, 0], [2, 1], [3, 0], [4, 2], [5, 3]], // C shape
-    'M': [[1, 0], [2, 1], [3, 0], [4, 2], [5, 3]], // C shape
-    // Minor chords
-    'm': [[1, 0], [2, 1], [3, 3], [4, 2], [5, 3]], // Cm shape
-    // Dominant 7
-    '7': [[1, 0], [2, 1], [3, 0], [4, 2], [5, 3], [6, 1]], // C7 shape
-    // Major 7
-    'maj7': [[1, 0], [2, 1], [3, 0], [4, 2], [5, 3], [6, 0]], // Cmaj7 shape
-    // Minor 7
-    'm7': [[1, 0], [2, 1], [3, 3], [4, 2], [5, 3], [6, 1]], // Cm7 shape
-    // Diminished
-    '°': [[1, 3], [2, 1], [3, 3], [4, 1], [5, 3]], // Cdim shape
-};
-
-function renderChordDiagram(root, quality) {
-    const container = document.getElementById('chord_diagram');
-    if (!container) return;
-    
-    // Clear previous diagram
-    container.innerHTML = '';
-    
-    // Get basic shape based on quality
-    let shape = chordShapes[quality] || chordShapes[''];
-    
-    // Create chord diagram
-    const chord = new Vex.Flow.Chord({
-        chord: shape,
-        position: 1,
-        stringCount: 6,
-        fretCount: 4,
-        showTuning: true,
-        label: root + quality
-    });
-    
-    // Render the chord
-    chord.draw(container);
 }
