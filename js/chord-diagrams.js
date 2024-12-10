@@ -223,6 +223,208 @@ function getChordData(chordName) {
                 toString: 1,
                 fret: 1
             }]
+        },
+        'C6': {  // C6
+            chord: [[1, 0], [2, 1, '1'], [3, 2, '2'], [4, 2, '3'], [5, 3, '4'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'Csus2': {  // Csus2
+            chord: [[1, 0], [2, 1, '1'], [3, 0], [4, 3, '3'], [5, 3, '2'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'Csus4': {  // Csus4
+            chord: [[1, 0], [2, 1, '1'], [3, 0], [4, 3, '3'], [5, 3, '2'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'C9': {  // C9
+            chord: [[1, 0], [2, 1, '1'], [3, 0], [4, 2, '2'], [5, 3, '4'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'Cm9': {  // Cm9
+            chord: [[1, 3, '3'], [2, 3, '4'], [3, 0], [4, 3, '2'], [5, 3, '1'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'F6': {  // F6 (E-shape)
+            chord: [[1, 0], [2, 3], [3, 2], [4, 2], [5, 'x'], [6, 1]],
+            position: 1,
+            barres: [{
+                fromString: 6,
+                toString: 1,
+                fret: 1
+            }]
+        },
+        'Fsus2': {  // Fsus2 (E-shape)
+            chord: [[3, 3], [4, 3], [5, 1]],
+            position: 1,
+            barres: [{
+                fromString: 6,
+                toString: 1,
+                fret: 1
+            }]
+        },
+        'Fsus4': {  // Fsus4 (E-shape)
+            chord: [[3, 3], [4, 3], [5, 4]],
+            position: 1,
+            barres: [{
+                fromString: 6,
+                toString: 1,
+                fret: 1
+            }]
+        },
+        'F9': {  // F9 (E-shape)
+            chord: [[1, 3], [2, 1], [3, 2], [4, 1], [5, 1], [6, 1]],
+            position: 1
+        },
+        'Fm9': {  // Fm9 (Em-shape)
+            chord: [[1, 3], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1]],
+            position: 1
+        },
+        'F+': {  // F augmented
+            chord: [[1, 'x'], [2, 3], [3, 2], [4, 1], [5, 'x'], [6, 1]],
+            position: 1
+        },
+        'Bb6': {  // Bb6 (A-shape)
+            chord: [[1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 'x']],
+            position: 1,
+            barres: [{
+                fromString: 5,
+                toString: 1,
+                fret: 1
+            }]
+        },
+        'Bbsus2': {  // Bbsus2 (A-shape)
+            chord: [[1, 1], [2, 1], [3, 3], [4, 3], [5, 1], [6, 'x']],
+            position: 1,
+            barres: [{
+                fromString: 5,
+                toString: 1,
+                fret: 1
+            }]
+        },
+        'Bbsus4': {  // Bbsus4 (A-shape)
+            chord: [[1, 1], [2, 1], [3, 3], [4, 3], [5, 4], [6, 'x']],
+            position: 1,
+            barres: [{
+                fromString: 5,
+                toString: 1,
+                fret: 1
+            }]
+        },
+        'Bb9': {  // Bb9 (A-shape)
+            chord: [[1, 'x'], [2, 2], [3, 2], [4, 1], [5, 2], [6, 'x']],
+            position: 1
+        },
+        'Bbm9': {  // Bbm9 (Am-shape)
+            chord: [[1, 'x'], [2, 1], [3, 2], [4, 1], [5, 2], [6, 'x']],
+            position: 1
+        },
+        'Bb+': {  // Bb augmented (A-shape)
+            chord: [[1, 'x'], [2, 3], [3, 3], [4, 2], [5, 'x'], [6, 'x']],
+            position: 1
+        },
+        'Bbmaj7': {  // Bbmaj7 (A-shape)
+            chord: [[2, 3], [3, 2], [4, 3], [6, 'x']],
+            position: 1,
+            barres: [{
+                fromString: 5,
+                toString: 1,
+                fret: 1
+            }]
+        },
+        'Bb13': {  // Bb13 (A-shape)
+            chord: [[1, 4], [2, 4], [3, 2], [4, 4], [5, 2], [6, 'x']],
+            position: 1
+        },
+        'Bb7b9': {  // Bb7b9 (A-shape)
+            chord: [[1, 'x'], [2, 1], [3, 2], [4, 1], [5, 2], [6, 'x']],
+            position: 1
+        },
+        'Bb7#9': {  // Bb7#9 (A-shape)
+            chord: [[1, 'x'], [2, 3], [3, 2], [4, 1], [5, 2], [6, 'x']],
+            position: 1
+        },
+        'Bbm7b5': {  // Bbm7b5 (Am7b5-shape)
+            chord: [[2, 2], [4, 2], [6, 'x']],
+            position: 1,
+            barres: [{
+                fromString: 5,
+                toString: 3,
+                fret: 1
+            }]
+        },
+        'Bbdim7': {  // Bbdim7
+            chord: [[1, 'x'], [2, 1], [3, 2], [4, 1], [5, 2], [6, 'x']],
+            position: 1
+        },
+        'C11': {  // C11
+            chord: [[1, 0], [2, 1, '1'], [3, 1, '2'], [4, 2, '3'], [5, 3, '4'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'Cm11': {  // Cm11
+            chord: [[1, 3, '3'], [2, 3, '4'], [3, 3, '2'], [4, 3, '1'], [5, 'x'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'C13': {  // C13
+            chord: [[1, 3, '3'], [2, 3, '4'], [3, 2, '2'], [4, 3, '1'], [5, 'x'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'C6/9': {  // C6/9
+            chord: [[1, 0], [2, 2, '2'], [3, 2, '3'], [4, 2, '4'], [5, 3, '1'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'C7sus4': {  // C7sus4
+            chord: [[1, 0], [2, 1, '1'], [3, 3, '3'], [4, 3, '4'], [5, 3, '2'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'C7b5': {  // C7b5
+            chord: [[1, 0], [2, 1, '1'], [3, 2, '2'], [4, 2, '3'], [5, 2, '4'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'C7#5': {  // C7#5 (C7aug)
+            chord: [[1, 0], [2, 1, '1'], [3, 2, '2'], [4, 2, '3'], [5, 4, '4'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'C7b9': {  // C7b9
+            chord: [[1, 1, '1'], [2, 1, '2'], [3, 3, '4'], [4, 2, '3'], [5, 'x'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'C7#9': {  // C7#9
+            chord: [[1, 3, '4'], [2, 1, '1'], [3, 3, '3'], [4, 2, '2'], [5, 'x'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'Cadd9': {  // Cadd9
+            chord: [[1, 0], [2, 3, '3'], [3, 0], [4, 2, '2'], [5, 3, '4'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'Cm(add9)': {  // Cm(add9)
+            chord: [[1, 3, '3'], [2, 3, '4'], [3, 0], [4, 3, '2'], [5, 3, '1'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'Cmaj9': {  // Cmaj9
+            chord: [[1, 0], [2, 2, '2'], [3, 0], [4, 2, '3'], [5, 3, '4'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'C5': {  // C5 (power chord)
+            chord: [[1, 'x'], [2, 'x'], [3, 5, '3'], [4, 5, '2'], [5, 3, '1'], [6, 'x']],
+            position: 0,
+            barres: []
         }
     };
 
@@ -258,13 +460,51 @@ function getChordData(chordName) {
                    quality === 'maj7' ? specificChords['Fmaj7'] :
                    quality === 'dim' ? specificChords['Fdim'] :
                    quality === 'm7b5' ? specificChords['Fm7b5'] :
+                   quality === '6' ? specificChords['F6'] :
+                   quality === 'sus2' ? specificChords['Fsus2'] :
+                   quality === 'sus4' ? specificChords['Fsus4'] :
+                   quality === '9' ? specificChords['F9'] :
+                   quality === 'm9' ? specificChords['Fm9'] :
+                   quality === '+' ? specificChords['F+'] :
+                   quality === '11' ? specificChords['F11'] :
+                   quality === 'm11' ? specificChords['Fm11'] :
+                   quality === '13' ? specificChords['F13'] :
+                   quality === '6/9' ? specificChords['F6/9'] :
+                   quality === '7sus4' ? specificChords['F7sus4'] :
+                   quality === '7b5' ? specificChords['F7b5'] :
+                   quality === '7#5' ? specificChords['F7#5'] :
+                   quality === '7b9' ? specificChords['F7b9'] :
+                   quality === '7#9' ? specificChords['F7#9'] :
+                   quality === 'add9' ? specificChords['Fadd9'] :
+                   quality === 'm(add9)' ? specificChords['Fm(add9)'] :
+                   quality === 'maj9' ? specificChords['Fmaj9'] :
+                   quality === '5' ? specificChords['F5'] :
                    specificChords['F'];  // Default to major
         position = POSITIONS.E[root];
     } else {
-        // Use A-shape
+        // Use A-shape with similar pattern
         baseShape = quality === 'm' ? specificChords['Bbm'] :
                    quality === '7' ? specificChords['Bb7'] :
                    quality === 'm7' ? specificChords['Bbm7'] :
+                   quality === '6' ? specificChords['Bb6'] :
+                   quality === 'sus2' ? specificChords['Bbsus2'] :
+                   quality === 'sus4' ? specificChords['Bbsus4'] :
+                   quality === '9' ? specificChords['Bb9'] :
+                   quality === 'm9' ? specificChords['Bbm9'] :
+                   quality === '+' ? specificChords['Bb+'] :
+                   quality === '11' ? specificChords['Bb11'] :
+                   quality === 'm11' ? specificChords['Bbm11'] :
+                   quality === '13' ? specificChords['Bb13'] :
+                   quality === '6/9' ? specificChords['Bb6/9'] :
+                   quality === '7sus4' ? specificChords['Bb7sus4'] :
+                   quality === '7b5' ? specificChords['Bb7b5'] :
+                   quality === '7#5' ? specificChords['Bb7#5'] :
+                   quality === '7b9' ? specificChords['Bb7b9'] :
+                   quality === '7#9' ? specificChords['Bb7#9'] :
+                   quality === 'add9' ? specificChords['Bbadd9'] :
+                   quality === 'm(add9)' ? specificChords['Bbm(add9)'] :
+                   quality === 'maj9' ? specificChords['Bbmaj9'] :
+                   quality === '5' ? specificChords['Bb5'] :
                    specificChords['Bb'];  // Default to major
         position = POSITIONS.A[root];
     }
