@@ -38,8 +38,6 @@
     <!-- Flash Chord -->
     <script src="/js/utils.js"></script>
     <script src="/js/ui.js"></script>
-    <script src="/js/lib/vexchords.js"></script>
-    <script src="/js/chord-diagrams.js"></script>
     <script src="/js/flashchord.js"></script>
     <script src="/js/theory-utils.js"></script>
     <script src="/js/metronome.js"></script>

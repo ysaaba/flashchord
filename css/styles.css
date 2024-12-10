@@ -23,17 +23,18 @@
 }
 
 #chord_name {
-    font-size: 10em;
-    margin: 0;
+    font-size: 12em;
+    margin-bottom: 0em;
+    margin-top: 0em;
+    margin-bottom: 0.2em;
     text-align: center;
-    line-height: 1.2;
 }
 
 #next_chord_name {
-    font-size: 3em;
-    margin: 0;
+    font-size: 4em;
+    margin-bottom: 0em;
+    margin-top: 0em;
     text-align: center;
-    line-height: 1.2;
 }
 
 #visual_metronome {
@@ -51,21 +52,4 @@
 #tempo .ui-slider-handle, #bars .ui-slider-handle {
     margin-left: -2em;
     width: 4em;
-}
-
-#chord_diagram {
-    width: 200px;
-    height: 240px;
-    margin: 0 auto;
-    margin-bottom: 1em;
-    margin-top: 1em;
-    position: relative;
-}
-
-#next_chord_diagram {
-    width: 100px;
-    height: 120px;
-    margin: 0 auto;
-    margin-top: 0.5em;
-    position: relative;
 }
