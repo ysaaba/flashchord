@@ -1,9 +1,14 @@
 /* global $current_beat:true, $current_bar:true, $downbeat_beep, $beat_beep, $quality:true, $extensions, $slash:true, $key:true, $keys, $chord_keys:true, $slash_degree:true, $root:true, logger, flatten, sharpen, setupBarsPerChord, setupBarsPerMeasure, setupBeatsPerMeasure, increment_beat, update_bars_progress, logger_new, logger_break, getRandom, $slash_degrees, $slash_note:true, $theoretical_keys, $all_chords, getHarmonicQualityMinor, getHarmonicQualityMajor, $extension:true, $chromatic, replaceRareEnharmonic, getTempo, $major_chords, $minor_chords, $dominant_chords, $diminished_chords, $augmented_chords, logger, PAGE_NAME */
 
-// Safari audio lag fix
-// No idea why this works, but someone online said this fixed the problem and it did! :)
-const AudioContext = window.AudioContext || window.webkitAudioContext; // eslint-disable-line no-redeclare
-const audioCtx = new AudioContext();
+let audioCtx;
+
+// Initialize audio context on first user interaction
+function initAudioContext() {
+    if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+    }
+}
 
 var $intervalId;
 var $tempo = 100;
@@ -27,6 +32,12 @@ $(document).ready(function() {
 
         setupBeatsPerMeasure();
         setupBarsPerChord();
+        
+        // Draw initial diagrams
+        drawChordDiagram($chord.replace(/<[^>]*>/g, ''), 'current_chord_diagram');
+        if (!$("input[name=hide_next_chord]").is(":checked")) {
+            drawChordDiagram($next_chord.replace(/<[^>]*>/g, ''), 'next_chord_diagram');
+        }
     }
 });
 
@@ -36,6 +47,7 @@ $(document).ready(function() {
 // start Flash Chord functionality
 function startFlashChord() {
     if (!$flash_chord_running) {
+        initAudioContext();
         $flash_chord_running = true;
         setupBeatsPerMeasure();
         setupBarsPerChord();
@@ -50,6 +62,12 @@ function startFlashChord() {
                 $next_chord = getChord();
                 $("#chord_name").html($chord);
                 $("#next_chord_name").html($next_chord);
+                
+                // Update chord diagrams
+                drawChordDiagram($chord.replace(/<[^>]*>/g, ''), 'current_chord_diagram');
+                if (!$("input[name=hide_next_chord]").is(":checked")) {
+                    drawChordDiagram($next_chord.replace(/<[^>]*>/g, ''), 'next_chord_diagram');
+                }
             }
 
             // metronome beep

@@ -35,12 +35,16 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 
+    <!-- VexChords -->
+    <script src="/js/lib/vexchords.js"></script>
+
     <!-- Flash Chord -->
     <script src="/js/utils.js"></script>
     <script src="/js/ui.js"></script>
     <script src="/js/flashchord.js"></script>
     <script src="/js/theory-utils.js"></script>
     <script src="/js/metronome.js"></script>
+    <script src="/js/chord-diagrams.js"></script>
     <script src="/data/data.js"></script>
 
     <!-- jQuery UI CSS -->

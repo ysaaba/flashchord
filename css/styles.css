@@ -24,16 +24,15 @@
 
 #chord_name {
     font-size: 12em;
-    margin-bottom: 0em;
-    margin-top: 0em;
-    margin-bottom: 0.2em;
+    margin-bottom: 0;
+    margin-top: 0;
     text-align: center;
 }
 
 #next_chord_name {
     font-size: 4em;
-    margin-bottom: 0em;
-    margin-top: 0em;
+    margin-bottom: 0;
+    margin-top: 0;
     text-align: center;
 }
 
@@ -52,4 +51,27 @@
 #tempo .ui-slider-handle, #bars .ui-slider-handle {
     margin-left: -2em;
     width: 4em;
+}
+
+#current_chord_diagram {
+    margin-top: -1em;
+    margin-bottom: 1em;
+}
+
+#next_chord_diagram {
+    margin-top: -0.5em;
+    margin-bottom: 1em;
+}
+
+#current_chord_diagram canvas,
+#next_chord_diagram canvas {
+    display: inline-block;
+}
+
+.chord-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2em;
 }
