@@ -4,7 +4,7 @@ function drawChordDiagram(chordName, elementId) {
         console.error('VexChords library not loaded');
         return;
     }
-    const ChordBox = vexchords.ChordBox;
+    
     const container = document.getElementById(elementId);
     if (!container) return;
     
@@ -15,28 +15,66 @@ function drawChordDiagram(chordName, elementId) {
     const chordData = getChordData(chordName);
     if (!chordData) return;
     
-    // Set options based on whether this is the current or next chord
-    const options = {
-        width: elementId.includes('next') ? 100 : 150,
-        height: elementId.includes('next') ? 120 : 180,
+    const isNextChord = elementId.includes('next');
+    
+    // Create new chord box with exact options matching the demo
+    const chord = new vexchords.ChordBox(container, {
+        width: isNextChord ? 100 : 200,
+        height: isNextChord ? 120 : 220,
+        circleRadius: isNextChord ? 3 : 5,
+        numStrings: 6,
+        numFrets: 5,
+        showTuning: true,
         defaultColor: '#666',
-        fontSize: elementId.includes('next') ? 12 : 14,
-        fontFamily: 'Arial',
-        showTuning: false,
-        stringWidth: 1,
-        fretWidth: 1,
+        bgColor: 'transparent',
         strokeColor: '#666',
+        textColor: '#666',
         stringColor: '#666',
         fretColor: '#666',
-        labelColor: '#666'
+        labelColor: '#666',
+        fretWidth: 1.5,
+        stringWidth: 1.5,
+        fontFamily: 'Arial',
+        fontSize: isNextChord ? 12 : 16,
+        fontWeight: 'normal',
+        fontStyle: 'normal',
+        labelWeight: 'normal',
+        topPadding: 20,
+        bottomPadding: 20,
+        dotText: {
+            fontSize: isNextChord ? 9 : 13,
+            fontWeight: 'normal',
+            fontFamily: 'Arial'
+        },
+        tuning: ['E', 'A', 'D', 'G', 'B', 'E']
+    });
+
+    // Prepare chord data to match demo format
+    const drawData = {
+        chord: chordData.chord.map(([string, fret, label]) => {
+            // Ensure proper formatting of chord dots
+            if (fret === 'x' || fret === 0) {
+                return [string, fret];
+            }
+            // If there's a label, make sure it's a string and trim it
+            return [string, fret, label ? label.toString().trim() : ''];
+        }),
+        position: chordData.position || 0,
+        barres: chordData.barres || [],
+        tuning: ['E', 'A', 'D', 'G', 'B', 'E']
     };
 
     // Draw the chord
-    try {
-        new ChordBox(container, options).draw(chordData);
-    } catch (e) {
-        console.error('Error drawing chord diagram:', e);
-    }
+    chord.draw(drawData);
+
+    // Add container styling to match demo
+    container.style.cssText = `
+        display: inline-block;
+        padding: 10px;
+        text-align: center;
+        vertical-align: top;
+        min-width: ${isNextChord ? '100px' : '200px'};
+    `;
 }
 
 // Function to get chord data
@@ -93,7 +131,7 @@ function getChordData(chordName) {
             barres: []
         },
         'C7': {  // C7
-            chord: [[1, 0], [2, 1, '1'], [3, 3, '4'], [4, 2, '2'], [5, 3, '3'], [6, 'x']],
+            chord: [[1, 0], [2, 1, '1'], [3, 3, '3'], [4, 2, '2'], [5, 3, '4'], [6, 'x']],
             position: 0,
             barres: []
         },
@@ -108,7 +146,14 @@ function getChordData(chordName) {
             barres: []
         },
         'G7': {  // G7
-            chord: [[1, 1, '1'], [2, 0], [3, 0], [4, 0], [5, 2, '2'], [6, 3, '3']],
+            chord: [
+                [1, 1, '1'],
+                [2, 0],
+                [3, 0],
+                [4, 0],
+                [5, 2, '2'],
+                [6, 3, '3']
+            ],
             position: 0,
             barres: []
         },
@@ -118,29 +163,32 @@ function getChordData(chordName) {
             barres: []
         },
         'Dm7': {  // Dm7
-            chord: [[1, 1], [2, 1], [3, 2, '2'], [4, 0], [5, 'x'], [6, 'x']],
+            chord: [[1, 1, '1'], [2, 1, '1'], [3, 2, '2'], [4, 0], [5, 'x'], [6, 'x']],
             position: 0,
-            barres: [{ fromString: 2, toString: 1, fret: 1 }]
+            barres: []
         },
         'Em7': {  // Em7
-            chord: [[1, 0], [2, 3, '4'], [3, 0], [4, 0], [5, 2, '1'], [6, 0, 'E']],
+            chord: [[1, 0], [2, 3, '3'], [3, 0], [4, 2, '2'], [5, 2, '1'], [6, 0]],
             position: 0,
             barres: []
         },
         'Am7': {  // Am7
-            chord: [[1, 0], [2, 1, '1'], [3, 0], [4, 2, '2'], [5, 0, 'A'], [6, 'x']],
+            chord: [[1, 0], [2, 1, '1'], [3, 0], [4, 2, '2'], [5, 0], [6, 'x']],
             position: 0,
             barres: []
         },
         // E-shape barre chords
         'F': {  // F Major (E-shape)
-            chord: [[3, 2], [4, 3], [5, 3]],
+            chord: [
+                [1, 1, '1'],
+                [2, 1, '1'],
+                [3, 2, '2'],
+                [4, 3, '3'],
+                [5, 3, '4'],
+                [6, 1, '1']
+            ],
             position: 1,
-            barres: [{
-                fromString: 6,
-                toString: 1,
-                fret: 1
-            }]
+            barres: [{fromString: 6, toString: 1, fret: 1}]
         },
         'Fm': {  // F Minor (Em-shape)
             chord: [[4, 3], [5, 3]],
@@ -225,22 +273,22 @@ function getChordData(chordName) {
             }]
         },
         'C6': {  // C6
-            chord: [[1, 0], [2, 1, '1'], [3, 2, '2'], [4, 2, '3'], [5, 3, '4'], [6, 'x']],
+            chord: [[1, 0], [2, 1, '1'], [3, 2, '2'], [4, 2, '3'], [5, 'x'], [6, 'x']],
             position: 0,
             barres: []
         },
         'Csus2': {  // Csus2
-            chord: [[1, 0], [2, 1, '1'], [3, 0], [4, 3, '3'], [5, 3, '2'], [6, 'x']],
+            chord: [[1, 0], [2, 3, '3'], [3, 0], [4, 3, '2'], [5, 3, '1'], [6, 'x']],
             position: 0,
             barres: []
         },
         'Csus4': {  // Csus4
-            chord: [[1, 0], [2, 1, '1'], [3, 0], [4, 3, '3'], [5, 3, '2'], [6, 'x']],
+            chord: [[1, 3, '3'], [2, 1, '1'], [3, 0], [4, 3, '4'], [5, 3, '2'], [6, 'x']],
             position: 0,
             barres: []
         },
         'C9': {  // C9
-            chord: [[1, 0], [2, 1, '1'], [3, 0], [4, 2, '2'], [5, 3, '4'], [6, 'x']],
+            chord: [[1, 3, '4'], [2, 1, '1'], [3, 2, '2'], [4, 2, '3'], [5, 3, '5'], [6, 'x']],
             position: 0,
             barres: []
         },
@@ -372,7 +420,7 @@ function getChordData(chordName) {
             barres: []
         },
         'C13': {  // C13
-            chord: [[1, 3, '3'], [2, 3, '4'], [3, 2, '2'], [4, 3, '1'], [5, 'x'], [6, 'x']],
+            chord: [[1, 2, '2'], [2, 3, '4'], [3, 2, '1'], [4, 3, '3'], [5, 'x'], [6, 'x']],
             position: 0,
             barres: []
         },
@@ -407,7 +455,7 @@ function getChordData(chordName) {
             barres: []
         },
         'Cadd9': {  // Cadd9
-            chord: [[1, 0], [2, 3, '3'], [3, 0], [4, 2, '2'], [5, 3, '4'], [6, 'x']],
+            chord: [[1, 3, '4'], [2, 1, '1'], [3, 0], [4, 2, '2'], [5, 3, '3'], [6, 'x']],
             position: 0,
             barres: []
         },
@@ -423,6 +471,31 @@ function getChordData(chordName) {
         },
         'C5': {  // C5 (power chord)
             chord: [[1, 'x'], [2, 'x'], [3, 5, '3'], [4, 5, '2'], [5, 3, '1'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'C+': {  // C augmented
+            chord: [[1, 'x'], [2, 1, '1'], [3, 1, '1'], [4, 2, '2'], [5, 3, '3'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'Cdim': {  // C diminished
+            chord: [[1, 'x'], [2, 1, '1'], [3, 'x'], [4, 1, '2'], [5, 0], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'Cmaj7': {  // C major 7
+            chord: [[1, 0], [2, 0], [3, 0], [4, 2, '2'], [5, 3, '3'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'Cdim7': {  // C diminished 7
+            chord: [[1, 'x'], [2, 1, '1'], [3, 2, '3'], [4, 1, '2'], [5, 2, '4'], [6, 'x']],
+            position: 0,
+            barres: []
+        },
+        'G9': {  // G9
+            chord: [[1, 1, '1'], [2, 0], [3, 0], [4, 0], [5, 0], [6, 3, '3']],
             position: 0,
             barres: []
         }
@@ -531,12 +604,19 @@ function getRootOffset(root) {
 function transposeShape(shape, offset) {
     const newShape = JSON.parse(JSON.stringify(shape)); // Deep clone
     
+    // Adjust position
     newShape.position = shape.position + offset;
     
     // Adjust position for playability
     if (newShape.position > 12) {
         newShape.position = newShape.position - 12;
     }
+    
+    // Make sure to preserve fingering labels when transposing
+    newShape.chord = shape.chord.map(([string, fret, label]) => {
+        if (fret === 'x' || fret === 0) return [string, fret];
+        return [string, fret, label]; // Preserve the fingering label
+    });
     
     return newShape;
 } 

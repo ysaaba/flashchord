@@ -75,3 +75,24 @@
     justify-content: center;
     margin-bottom: 2em;
 }
+
+/* Add these styles for the chord diagrams */
+.chord-diagram {
+    display: inline-block;
+    margin: 10px;
+    vertical-align: top;
+}
+
+.chord-diagram.next {
+    width: 100px;
+}
+
+/* Style for the fret position number */
+.chord-diagram text[text-anchor="start"] {
+    font-weight: bold;
+}
+
+.chord-diagram canvas {
+    display: block;
+    margin: 0 auto;
+}
