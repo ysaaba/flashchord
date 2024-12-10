@@ -10,13 +10,12 @@
 <body>
     <?php require 'components/header.php'; ?>
     <div class="container">
-        <p class="lead text-muted">Practice chords, scales, or arpeggios with an endless stream of randomized chords!</p>
-    </div>
-    <div class="container">
         <h2 id="chord_name">Chord</h2>
+        <div id="chord_diagram"></div>
         <div id="next_chord">
             <h3 class="text-center">Up next...</h3>
             <h2 id="next_chord_name">Next Chord</h2>
+            <div id="next_chord_diagram"></div>
         </div>
         <div class="btn-group-lg text-center mt-4" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-success" id="start">Start</button>

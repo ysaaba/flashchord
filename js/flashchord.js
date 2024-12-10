@@ -1,9 +1,18 @@
 /* global $current_beat:true, $current_bar:true, $downbeat_beep, $beat_beep, $quality:true, $extensions, $slash:true, $key:true, $keys, $chord_keys:true, $slash_degree:true, $root:true, logger, flatten, sharpen, setupBarsPerChord, setupBarsPerMeasure, setupBeatsPerMeasure, increment_beat, update_bars_progress, logger_new, logger_break, getRandom, $slash_degrees, $slash_note:true, $theoretical_keys, $all_chords, getHarmonicQualityMinor, getHarmonicQualityMajor, $extension:true, $chromatic, replaceRareEnharmonic, getTempo, $major_chords, $minor_chords, $dominant_chords, $diminished_chords, $augmented_chords, logger, PAGE_NAME */
 
-// Safari audio lag fix
-// No idea why this works, but someone online said this fixed the problem and it did! :)
-const AudioContext = window.AudioContext || window.webkitAudioContext; // eslint-disable-line no-redeclare
-const audioCtx = new AudioContext();
+let audioCtx;
+
+function initAudio() {
+    if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+    }
+}
+
+// Initialize audio on user interaction
+document.addEventListener('click', function() {
+    initAudio();
+});
 
 var $intervalId;
 var $tempo = 100;
@@ -19,11 +28,14 @@ $(document).ready(function() {
     // first, make sure we're on the home page before doing any of the chord stuff
     if (PAGE_NAME == "homepage") {
         $chord = $next_chord ? $next_chord : getChord();
-
         $next_chord = getChord();
         
         $("#chord_name").html($chord);
         $("#next_chord_name").html($next_chord);
+
+        // Initialize chord diagrams
+        drawChordDiagram($chord, 'chord_diagram');
+        drawChordDiagram($next_chord, 'next_chord_diagram');
 
         setupBeatsPerMeasure();
         setupBarsPerChord();
@@ -48,8 +60,14 @@ function startFlashChord() {
                 // change chords
                 $chord = $next_chord ? $next_chord : getChord();
                 $next_chord = getChord();
+                
+                // Update chord names
                 $("#chord_name").html($chord);
                 $("#next_chord_name").html($next_chord);
+                
+                // Update chord diagrams
+                drawChordDiagram($chord, 'chord_diagram');
+                drawChordDiagram($next_chord, 'next_chord_diagram');
             }
 
             // metronome beep
